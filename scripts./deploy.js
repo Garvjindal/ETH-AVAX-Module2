@@ -1,15 +1,16 @@
-const hre = require("hardhat");
+const { ethers } = require("hardhat");
 
 async function main() {
-  const initialBalance = 1;
-  const Assessment = await hre.ethers.getContractFactory("Assessment");
-  const assessment = await Assessment.deploy(initialBalance);
-  await assessment.deployed();
+  const BusRental = await ethers.getContractFactory("BusRental");
+  const bicycleRental = await BusRental.deploy();
+  await bicycleRental.deployed();
 
-  console.log(`A balance of ${initialBalance} ETH deployed to ${assessment.address}`);
+  console.log(`BusRental deployed to: ${bicycleRental.address}`);
 }
 
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
